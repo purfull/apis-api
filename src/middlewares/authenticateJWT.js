@@ -4,7 +4,15 @@ const { ACCESS_SECRET, REFRESH_SECRET, generateAccessToken } = require('../servi
 const refreshAccessToken = (refreshToken) => {
   try {
     const decoded = jwt.verify(refreshToken, REFRESH_SECRET);
-    return generateAccessToken(decoded);
+    
+    const payload = {
+      id: decoded.id,
+      name: decoded.name,
+      email: decoded.email,
+      phone: decoded.phone,
+    };
+
+    return generateAccessToken(payload);
   } catch (err) {
     return null;
   }

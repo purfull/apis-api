@@ -7,20 +7,18 @@ module.exports = sequelize.define('Customers', {
   defaultValue: DataTypes.UUIDV4,
     primaryKey: true
   },
-  userName: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
   name: {
     type: DataTypes.STRING,
     allowNull: false,
   },
   email: {
     type: DataTypes.STRING,
+    unique: true,
     allowNull: false,
   },
   phone: {
     type: DataTypes.STRING,
+    unique: true,
     allowNull: false,
   },
   password: {

@@ -14,6 +14,7 @@ router.get('/get-customer/:id', authenticateToken.authenticateToken, CustomerCon
 router.post('/create-customer', CustomerController.createCustomers);
 router.post('/login', CustomerController.customerLogin);
 router.post('/reset-password', CustomerController.resetPassword);
+router.post("/logout", authenticateToken.authenticateToken, CustomerController.logout);
 router.put('/update-customer', authenticateToken.authenticateToken, CustomerController.updateCustomers);
 router.delete('/delete-customer/:id', authenticateToken.authenticateToken, CustomerController.deleteCustomers);
 

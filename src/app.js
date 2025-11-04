@@ -9,6 +9,7 @@ const { errorHandler } = require("./middlewares/errorHandler.js");
 
 const customerRoutes = require("./routes/customers.routes.js");
 const otpRoutes = require("./routes/otp.routes.js");
+const authRoutes = require("./routes/auth.routes.js");
 const supportRoutes = require("./routes/support.routes.js");
 
 // require('./utils/relationship.js');
@@ -16,7 +17,7 @@ const supportRoutes = require("./routes/support.routes.js");
 const app = express();
 
 const corsOptions = {
-  origin: "*",
+  origin: "http://localhost:5173",
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
@@ -31,6 +32,7 @@ app.use(morgan("dev"));
 
 app.use(apiRateLimiter);
 
+app.use("/auth", authRoutes);
 app.use("/customer", customerRoutes);
 app.use("/otp", otpRoutes);
 app.use("/support", supportRoutes);

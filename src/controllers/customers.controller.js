@@ -97,7 +97,6 @@ const getCustomersById = async (req, res) => {
 const createCustomers = async (req, res) => {
   const {
     otpToken,
-    userName,
     name,
     email,
     phone,
@@ -129,7 +128,6 @@ const createCustomers = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newCustomer = await Customers.create({
-      userName,
       name,
       email,
       phone,
@@ -221,6 +219,7 @@ const customerLogin = async (req, res) => {
 
     const accessToken = generateAccessToken(payload);
     const refreshToken = generateRefreshToken(payload);
+    
 
     // const isMobile = req.headers["platform"] === "mobile";
     // if (!isMobile) {
@@ -244,6 +243,29 @@ const customerLogin = async (req, res) => {
       .json({ success: false, message: "Internal server error" });
   }
 };
+
+const logout = async (req, res) => {
+  try {
+
+    res.clearCookie("refreshToken", {
+      httpOnly: true,
+      secure: false,
+      sameSite: "Strict",
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Logged out successfully",
+    });
+  } catch (err) {
+    console.error("Logout error:", err);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error during logout",
+    });
+  }
+};
+
 
 const resetPassword = async (req, res) => {
   try {
@@ -361,6 +383,7 @@ module.exports = {
   getCustomersById,
   createCustomers,
   customerLogin,
+  logout,
   resetPassword,
   updateCustomers,
   deleteCustomers,
