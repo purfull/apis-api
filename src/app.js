@@ -32,10 +32,10 @@ app.use(morgan("dev"));
 
 app.use(apiRateLimiter);
 
-app.use("/auth", authRoutes);
+// app.use("/auth", authRoutes);
 app.use("/customer", customerRoutes);
 app.use("/otp", otpRoutes);
-app.use("/support", supportRoutes);
+// app.use("/support", supportRoutes);
 // app.use("/health", healthRoutes);
 
 app.use(errorHandler);

@@ -99,6 +99,7 @@ const createCustomers = async (req, res) => {
     otpToken,
     name,
     email,
+    countryCode,
     phone,
     password,
     address,
@@ -130,6 +131,7 @@ const createCustomers = async (req, res) => {
     const newCustomer = await Customers.create({
       name,
       email,
+      countryCode,
       phone,
       password: hashedPassword,
       address,

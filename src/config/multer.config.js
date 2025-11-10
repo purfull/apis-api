@@ -5,7 +5,9 @@ const uploadFolder = path.resolve(__dirname, '../../uploads');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, uploadFolder ); 
+    const tenantFolder = path.join(__dirname, `${uploadFolder}/${req.tenantSchema}`);
+    if (!fs.existsSync(tenantFolder)) fs.mkdirSync(tenantFolder, { recursive: true });
+    cb(null, tenantFolder);
   },
   filename: (req, file, cb) => {
     cb(null, `${Date.now()}-${file.originalname}`); 
